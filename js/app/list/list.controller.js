@@ -20,7 +20,7 @@ function ListController() {
     vm.isInEditMode = isInEditMode;
     vm.add = add;
     vm.save = save;
-    vm.cancel = cancel;
+    vm.cancel = reset;
 
 
 
@@ -111,10 +111,6 @@ function ListController() {
 
       }
     }
-
-  }
-
-  function cancel() {
 
   }
 
