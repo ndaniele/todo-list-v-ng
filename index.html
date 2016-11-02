@@ -5,7 +5,66 @@
       <title>To Do List NG</title>
     </head>
     <body ng-app="todoApp">
-        <h1>This is our angualr application</h1>
+        <div ng-controller="ListController as vm">
+            <h1>{{ vm.list.name }}</h1>
+
+            <!-- add task -->
+
+            <button ng-click="vm.startAdd()" 
+                    ng-show="!vm.isInAddMode()">Add A task
+            </button>
+
+            <div ng-show="vm.isInAddMode()">
+              <input placeholder="task name" ng-model="vm.currentTask.name"></input>
+              <button ng-click="vm.add()">Add</button>
+            </div>
+
+
+          <!-- tasks -->
+
+
+            <div ng-repeat="task in vm.list.tasks | orderBy: '$index'">
+
+              <div ng-show="vm.isInReadMode(task.id)">
+                <p>
+                  {{ $index +1 }}: {{ task.name }} - completed: {{ task.complete }}
+                </p>
+
+                <!-- task options -->
+
+                <button ng-click="vm.startEdit(task.id)">Edit</button>
+
+                <button ng-click="vm.startRemove(task.id)">Delete</button>
+
+                <!-- end of task options -->
+              </div>
+
+              <!-- edit task -->
+
+              <div ng-show="vm.isInEditMode(task.id)">
+                  <input placeholder="task name"
+                         ng-model="vm.currentTask.name">
+
+                  <input type="checkbox"
+                         ng-true-value="true"
+                         ng-false-value="false"
+                         ng-model="vm.currentTask.complete">
+
+                  <button ng-click="vm.save()">SAVE</button>
+                  <button ng-click="vm.cancel()">Cancel</button>
+              </div>
+
+            </div>
+
+
+
+        </div>
+
+
+
+        <script src="js/angular.js"></script>
+        <script src="js/app/app.js"></script>
+        <script src="js/app/list/list.controller.js"></script>
 
     </body>
     </html>
